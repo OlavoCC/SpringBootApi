@@ -12,15 +12,15 @@ public class EntryUserDTO {
     private String name;
 
     @NotBlank
-    @Size(max = 3, min = 1)
+    @Size(max = 100)
     private String lastName;
 
     @NotBlank
-    @Size(min = 7, max = 100)
+    @Size(max = 11, min = 11)
     private String cpf;
 
     @NotBlank
-    @Size(max = 11, min = 11)
+    @Size(min = 1, max = 2)
     private String age;
 
     @NotBlank

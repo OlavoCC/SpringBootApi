@@ -55,7 +55,7 @@ public class UserServiceSql implements IUserInterfaceSql {
                         (String) row[2],  // age
                         (String) row[3],  // cpf
                         (String) row[4],  // email
-                        (String) row[5]   // flag
+                        (String) row[5]
                 );
                 result.add(dto);
             }
@@ -79,8 +79,7 @@ public class UserServiceSql implements IUserInterfaceSql {
                     String.valueOf(row[2]),
                     String.valueOf(row[3]),
                     String.valueOf(row[4]),
-                    String.valueOf(row[5])
-            );
+                    String.valueOf(row[5])            );
         } catch (Exception e) {
             e.printStackTrace();
             return null; // Ou lance uma exceção personalizada
