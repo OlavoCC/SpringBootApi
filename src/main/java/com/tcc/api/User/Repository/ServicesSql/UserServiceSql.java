@@ -65,17 +65,28 @@ public class UserServiceSql implements IUserInterfaceSql {
         }
     }
 
-    public ReturnUserDTO ListUserByIdSQL(int id){
-        try{
-            ReturnUserDTO dto = entityManager.createQuery(
-                            "SELECT new ReturnUserDTO(u.name, u.age, u.cpf, u.email, u.flag) " +
-                                    "FROM User u WHERE u.id = :id", ReturnUserDTO.class)
-                    .setParameter("id", id)
+    public ReturnUserDTO ListUserByIdSQL(int id) {
+        try {
+            Object[] row = (Object[]) entityManager.createNativeQuery(
+                            "SELECT id, name, age, cpf, email, flag FROM `user` WHERE id = ?1"
+                    )
+                    .setParameter(1, id)
                     .getSingleResult();
-            return dto;
-        }catch(Exception e){
-            throw new RuntimeException(e);
+
+            return new ReturnUserDTO(
+                    ((Number) row[0]).intValue(),
+                    String.valueOf(row[1]),
+                    String.valueOf(row[2]),
+                    String.valueOf(row[3]),
+                    String.valueOf(row[4]),
+                    String.valueOf(row[5])
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; // Ou lance uma exceção personalizada
         }
     }
 
 }
+
+
