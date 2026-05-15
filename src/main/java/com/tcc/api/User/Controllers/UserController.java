@@ -55,7 +55,8 @@ public class UserController {
                 return ResponseEntity.badRequest().body(result);
             }
         }catch (Exception e) {
-            return ResponseEntity.internalServerError().build(); // 500
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
         }
     }
 
