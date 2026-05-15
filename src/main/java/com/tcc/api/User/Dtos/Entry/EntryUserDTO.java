@@ -1,6 +1,5 @@
 package com.tcc.api.User.Dtos.Entry;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -14,23 +13,23 @@ public class EntryUserDTO {
 
     @NotBlank
     @Size(max = 3, min = 1)
-    private String age;
+    private String lastName;
 
     @NotBlank
     @Size(min = 7, max = 100)
-    private String password;
+    private String cpf;
 
     @NotBlank
     @Size(max = 11, min = 11)
-    private String cpf;
+    private String age;
 
-    @Email
     @NotBlank
-    private String email;
+    private String password;
 
     @NotBlank
     @Size(max = 1)
-    private String flag;
+    private String role;
+
 
 
 }

@@ -31,9 +31,9 @@ public class UserServiceSql implements IUserInterfaceSql {
                     .setParameter(1, model.getName())
                     .setParameter(2, model.getAge())
                     .setParameter(3, model.getPassword())
-                    .setParameter(4, model.getCPF())
-                    .setParameter(5, model.getEmail())
-                    .setParameter(6, model.getFlag())
+                    .setParameter(4, model.getCpf())
+                    .setParameter(5, model.getLastName())
+                    .setParameter(6, model.getRole())
                     .executeUpdate();
 
             return Boolean.TRUE;

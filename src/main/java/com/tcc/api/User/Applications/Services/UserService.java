@@ -26,11 +26,11 @@ public class UserService implements IUserInterface {
     public Boolean createUser(EntryUserDTO dto){
         var User = new UserModel(
                 dto.getName(),
+                dto.getLastName(),
+                dto.getCpf(),
                 dto.getAge(),
                 dto.getPassword(),
-                dto.getCpf(),
-                dto.getEmail(),
-                dto.getFlag()
+                dto.getRole()
         );
         Boolean result = userInterfaceSql.CreateUserSQl(User);
         if(result){

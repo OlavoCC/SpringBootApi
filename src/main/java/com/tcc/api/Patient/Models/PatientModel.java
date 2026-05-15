@@ -1,4 +1,5 @@
 package com.tcc.api.Patient.Models;
 
-public class PatientModel {
+import com.tcc.api.User.Models.UserModel;
+public class PatientModel extends UserModel{
 }

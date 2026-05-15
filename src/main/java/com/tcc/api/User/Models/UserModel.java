@@ -12,20 +12,22 @@ public class UserModel{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public String Name;
-    public String Age;
-    public String Password;
-    public String CPF;
-    public String Email;
-    public String Flag;
+    private String name;
+    private String lastName;
+    private String cpf;
+    private String age;
+    private String password;
+    private String role;
 
-    public UserModel(String Name, String Age, String Password, String CPF, String Email, String Flag){
-        this.Name = Name;
-        this.Age = Age;
-        this.Password = Password;
-        this.CPF = CPF;
-        this.Email = Email;
-        this.Flag = Flag;
+
+
+    public UserModel(String name, String lastName, String cpf, String age, String password, String role){
+        this.name = name;
+        this.lastName = lastName;
+        this.cpf = cpf;
+        this.age = age;
+        this.password = password;
+        this.role = role;
     }
     public UserModel() {};
 }
