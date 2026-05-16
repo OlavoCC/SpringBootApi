@@ -3,8 +3,11 @@ package com.tcc.api.User.Applications.Services;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import com.tcc.api.Security.JwtService;
 import com.tcc.api.User.Applications.Interfaces.IUserInterface;
 import com.tcc.api.User.Dtos.Entry.EntryUserDTO;
+import com.tcc.api.User.Dtos.Login.EntryUserLoginDTO;
+import com.tcc.api.User.Dtos.Login.ReturnUserLoginDTO;
 import com.tcc.api.User.Dtos.Return.ReturnUserDTO;
 
 
@@ -22,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 public class UserService implements IUserInterface {
     @Autowired
     private final IUserInterfaceSql userInterfaceSql;
+    @Autowired
+    private final JwtService jwtService;
 
     public Boolean createUser(EntryUserDTO dto){
         var User = new UserModel(
@@ -53,5 +58,14 @@ public class UserService implements IUserInterface {
     public ReturnUserDTO ListUserById(int id){
         var result = userInterfaceSql.ListUserByIdSQL(id);
         return result;
+    }
+
+    public ReturnUserLoginDTO UserLogin(EntryUserLoginDTO dto){
+        var result = userInterfaceSql.UserLoginSQL(dto);
+        if(result.getSucess()){
+            String jwt = jwtService.generateToken(result.getId(), result.getRole());
+            return new ReturnUserLoginDTO(Boolean.TRUE, jwt);
+        }
+        return null;
     }
 }

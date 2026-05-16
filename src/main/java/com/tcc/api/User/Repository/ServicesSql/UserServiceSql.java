@@ -1,13 +1,19 @@
 package com.tcc.api.User.Repository.ServicesSql;
 
 
+import ch.qos.logback.core.joran.sanity.Pair;
+import com.tcc.api.User.Dtos.Login.EntryUserLoginDTO;
 import com.tcc.api.User.Dtos.Return.ReturnUserDTO;
 import com.tcc.api.User.Models.UserModel;
 import com.tcc.api.User.Repository.InterfacesSql.IUserInterfaceSql;
 
+import com.tcc.api.User.Repository.Transporter.TrasnporterLoginResult;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import lombok.Data;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,9 +23,19 @@ import java.util.List;
 
 @Service
 public class UserServiceSql implements IUserInterfaceSql {
+    @Data
+    public class IdRole{
+        public String id;
+        public String role;
+    }
 
+    private final JdbcTemplate jdbcTemplate;
     @PersistenceContext
     private EntityManager entityManager;
+
+    public UserServiceSql(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Transactional
     public Boolean CreateUserSQl(UserModel model) {
@@ -84,6 +100,17 @@ public class UserServiceSql implements IUserInterfaceSql {
             e.printStackTrace();
             return null; // Ou lance uma exceção personalizada
         }
+    }
+
+    public TrasnporterLoginResult UserLoginSQL(EntryUserLoginDTO dto){
+        String Sql = "SELECT id, role FROM patient WHERE cpf = ? AND password = ?";
+        var result = jdbcTemplate.queryForObject(Sql, new BeanPropertyRowMapper<>(TrasnporterLoginResult.class), dto.getCpf(), dto.getPassword());
+        if (result != null){
+            result.setSucess(Boolean.TRUE);
+            return  result;
+        }
+        result.setSucess(Boolean.FALSE);
+        return  result;
     }
 
 }

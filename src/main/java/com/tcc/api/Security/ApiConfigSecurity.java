@@ -1,4 +1,4 @@
-package com.tcc.api;
+package com.tcc.api.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -2,6 +2,8 @@ package com.tcc.api.User.Controllers;
 
 import com.tcc.api.User.Applications.Interfaces.IUserInterface;
 import com.tcc.api.User.Dtos.Entry.EntryUserDTO;
+import com.tcc.api.User.Dtos.Login.EntryUserLoginDTO;
+import com.tcc.api.User.Dtos.Login.ReturnUserLoginDTO;
 import com.tcc.api.User.Dtos.Return.ReturnUserDTO;
 
 import jakarta.validation.Valid;
@@ -49,6 +51,21 @@ public class UserController {
         System.out.println(id);
         try{
             var result = userInterface.ListUserById(id);
+            if(result != null){
+                return ResponseEntity.status(200).body(result);
+            } else {
+                return ResponseEntity.badRequest().body(result);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @PostMapping("UserLogin")
+    public ResponseEntity<ReturnUserLoginDTO> UserLogin(@RequestBody @Valid EntryUserLoginDTO dto){
+        try{
+            var result = userInterface.UserLogin(dto);
             if(result != null){
                 return ResponseEntity.status(200).body(result);
             } else {
